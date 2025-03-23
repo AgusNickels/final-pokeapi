@@ -1,0 +1,30 @@
+footer {
+    width: 100%;
+    background-color: #3B4CCA; /* Azul Pokémon o cualquier otro color que prefieras */
+    color: #FFFFFF; /* Texto blanco para contraste */
+    text-align: center;
+    padding: 20px 0;
+    border-top: 3px solid #FF4500; /* Naranja estilo Charizard */
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+footer nav {
+    display: flex;
+    gap: 15px;
+}
+
+footer a {
+    color: #FFD700; /* Amarillo vibrante */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
