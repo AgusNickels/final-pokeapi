@@ -1,0 +1,36 @@
+.favoritos-container {
+  padding: 20px;
+  background-color: #222;
+  color: #fff;
+  min-height: 100vh;
+}
+
+.favoritos-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 20px;
+}
+
+.pokemon-card {
+  background-color: #333;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.pokemon-card img {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+}
+
+.pokemon-card h2 {
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.pokemon-card p {
+  font-size: 0.9rem;
+  color: #aaa;
+}

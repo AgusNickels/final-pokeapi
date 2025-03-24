@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 export function ListaPokemon() {
-    let { id } = useParams();
+    const { id } = useParams();
 
     const [data, setData] = useState({});
     const [evolutionData, setEvolutionData] = useState([]);
@@ -14,13 +14,13 @@ export function ListaPokemon() {
             fire: "Fuego",
             water: "Agua",
             grass: "Planta",
-            electric: "Electrico",
+            electric: "Eléctrico",
             ice: "Hielo",
             fighting: "Lucha",
             poison: "Veneno",
             ground: "Tierra",
             flying: "Volador",
-            psychic: "Psiquico",
+            psychic: "Psíquico",
             bug: "Bicho",
             rock: "Roca",
             ghost: "Fantasma",
@@ -33,34 +33,37 @@ export function ListaPokemon() {
     };
 
     const fetchPokemonData = async () => {
-        const response = await fetch(API_URL);
-        const pokemonData = await response.json();
-        setData(pokemonData);
+        try {
+            const response = await fetch(API_URL);
+            const pokemonData = await response.json();
+            setData(pokemonData);
 
-        const speciesResponse = await fetch(pokemonData.species.url);
-        const speciesData = await speciesResponse.json();
+            const speciesResponse = await fetch(pokemonData.species.url);
+            const speciesData = await speciesResponse.json();
 
-        const evolutionResponse = await fetch(speciesData.evolution_chain.url);
-        const evolutionData = await evolutionResponse.json();
+            const evolutionResponse = await fetch(speciesData.evolution_chain.url);
+            const evolutionData = await evolutionResponse.json();
 
-        const evolutionChain = [];
-        let current = evolutionData.chain;
+            const evolutionChain = [];
+            let current = evolutionData.chain;
 
-        while (current) {
-            const name = current.species.name;
-            const id = current.species.url.split('/').slice(-2, -1)[0]; // Extraer ID del URL
-            evolutionChain.push({ name, id });
-            current = current.evolves_to.length ? current.evolves_to[0] : null;
+            while (current) {
+                const name = current.species.name;
+                const id = current.species.url.split('/').slice(-2, -1)[0]; // Extraer ID del URL
+                evolutionChain.push({ name, id });
+                current = current.evolves_to.length ? current.evolves_to[0] : null;
+            }
+
+            setEvolutionData(evolutionChain);
+        } catch (error) {
+            console.error('Error fetching Pokémon data:', error);
         }
-
-        setEvolutionData(evolutionChain);
     };
 
     useEffect(() => {
         fetchPokemonData();
     }, [id]);
 
-    // Formatear el ID a 3 dígitos (001, 002, ..., 999)
     const formattedId = id.toString().padStart(3, "0");
 
     return (
@@ -72,8 +75,7 @@ export function ListaPokemon() {
                         <h2>
                             {data.name} <span>N.° {formattedId}</span>
                         </h2>
-                        <div className="grid-2-complete">
-                            {/* Imagen principal */}
+                        <div className="pokemon-details">
                             <div className="left-content">
                                 <img
                                     src={`https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/${formattedId}.png`}
@@ -82,7 +84,6 @@ export function ListaPokemon() {
                                 />
                             </div>
 
-                            {/* Información principal */}
                             <div className="right-content">
                                 <h3>Habilidades</h3>
                                 <div className="grid-2">
@@ -103,14 +104,14 @@ export function ListaPokemon() {
                         {/* Evoluciones con imágenes */}
                         <h3>Evoluciones</h3>
                         <div className="evolution-list">
-                            {evolutionData.map((evo, index) => (
-                                <div key={index} className="evolution-item">
+                            {evolutionData.map((evo) => (
+                                <Link to={`/pokemon/${evo.id}`} key={evo.id} className="evolution-item">
                                     <img
-                                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${evo.id}.gif`}
-                                        alt={`${evo.name} sprite`}
+                                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${evo.id}.png`}
+                                        alt={`${evo.name} sprite`} // Asegúrate de que el sprite se ve correctamente
                                     />
                                     <p>{evo.name}</p>
-                                </div>
+                                </Link>
                             ))}
                         </div>
                     </div>
