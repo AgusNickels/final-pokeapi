@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Bienvenidos.css';
 
 export function Bienvenidos() {
@@ -8,7 +9,8 @@ export function Bienvenidos() {
       </header>
 
       <main className="pokedex-content">
-        <a className="pokedex-link" href="http://localhost:5173/pokedex">"Prepárate para convertirte en el mejor Maestro Pokémon."</a>
+        {/* Usamos Link de react-router-dom en vez de un 'a' */}
+        <Link className="pokedex-link" to="/Pokedex">"Prepárate para convertirte en el mejor Maestro Pokémon."</Link>
       </main>
 
       <footer className="pokedex-footer">

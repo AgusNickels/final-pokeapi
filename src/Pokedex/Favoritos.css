@@ -1,36 +1,42 @@
-.favoritos-container {
-  padding: 20px;
-  background-color: #222;
+.favoritos {
+  padding: 2rem;
+  text-align: center;
+}
+
+.favoritos h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
   color: #fff;
-  min-height: 100vh;
 }
 
 .favoritos-list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
-  margin-top: 20px;
+  justify-items: center;
 }
 
-.pokemon-card {
-  background-color: #333;
-  padding: 10px;
+.favorito-item {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 1rem;
   border-radius: 8px;
   text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.pokemon-card img {
-  width: 100%;
-  max-width: 150px;
-  height: auto;
+.favorito-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
 }
 
-.pokemon-card h2 {
-  font-size: 1.1rem;
-  color: #fff;
+.favorito-item h2 {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
 }
 
-.pokemon-card p {
-  font-size: 0.9rem;
-  color: #aaa;
+.favorito-item p {
+  font-size: 1rem;
+  color: #555;
 }

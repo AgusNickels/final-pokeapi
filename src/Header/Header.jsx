@@ -3,14 +3,14 @@ import { MdAssignmentInd, MdFavorite , MdCottage, MdOutlineCatchingPokemon } fro
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
-export function Header () {
-    let [select,setSelect] = useState(0);
+export function Header() {
+    let [select, setSelect] = useState(0);
 
     let navigation = [
-        { text: 'Bienvenidos', icono: <MdCottage />, url: "/" },
-        { text: 'Pokedex', icono: <MdOutlineCatchingPokemon />, url: "/pokedex" },
-        { text: 'Favoritos', icono: <MdFavorite />, url: "/favoritos" },
-        { text: 'Registrate', icono: <MdAssignmentInd />, url: "/registrate" },
+        { text: 'Bienvenidos', icono: <MdCottage />, url: "/", ariaLabel: "Página principal" },
+        { text: 'Pokedex', icono: <MdOutlineCatchingPokemon />, url: "/pokedex", ariaLabel: "Ir a la Pokedex" },
+        { text: 'Favoritos', icono: <MdFavorite />, url: "/favoritos", ariaLabel: "Ver tus favoritos" },
+        { text: 'Registrate', icono: <MdAssignmentInd />, url: "/registrate", ariaLabel: "Registrarse" },
     ];
 
     let clicNav = (i) => setSelect(i);
@@ -24,6 +24,8 @@ export function Header () {
                         onClick={() => clicNav(i)} 
                         key={nav.text} 
                         className={select === i ? "select" : ""}
+                        aria-label={nav.ariaLabel}
+                        aria-current={select === i ? "page" : undefined}
                     > 
                         {nav.icono}
                         <span>{nav.text}</span>

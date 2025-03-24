@@ -8,32 +8,42 @@ import { Favoritos } from './Pokedex/Favoritos';
 import { Formulario } from './Formulario/Formulario';
 import { Footer } from './Footer/Footer';
 import { Search } from './Pokedex/Search';
-import { NotFound } from './Pokedex/notFound';
+import NotFound from './Pokedex/notFound';
 
 function App() {
   const [search, setSearch] = useState("");
-  const [favorites, setFavorites] = useState([]); // Lista de favoritos
+  const [favorites, setFavorites] = useState([]);
   const navigate = useNavigate();
 
-  let sendSearch = (value) => { setSearch(value); };
+  // Función para actualizar el estado de búsqueda
+  const sendSearch = (value) => { 
+    setSearch(value); 
+  };
 
+  // useEffect para redirigir a la página de detalles del Pokémon si la búsqueda cambia
   useEffect(() => {
-    if (search !== "") { navigate("/pokemon/" + search); }
+    if (search) {
+      navigate("/pokemon/" + encodeURIComponent(search));
+    }
   }, [search, navigate]);
 
-  // Función para manejar los favoritos
-  const handleFavorite = (pkmon) => {
-    // Verificar si el Pokémon ya está en favoritos
-    if (favorites.some(fav => fav.name === pkmon.name)) {
-      // Si ya está en favoritos, eliminarlo
-      setFavorites(favorites.filter(fav => fav.name !== pkmon.name));
-    } else {
-      // Si no está, agregarlo a favoritos
-      setFavorites([...favorites, pkmon]);
-    }
-    console.log(favorites);
+  // Manejo de la adición/eliminación de favoritos
+  const handleFavorite = (pokemon) => {
+    const isFavorite = favorites.some(fav => fav.id === pokemon.id);
+
+    const updatedFavorites = isFavorite
+      ? favorites.filter(fav => fav.id !== pokemon.id)  // Eliminar de favoritos
+      : [...favorites, pokemon];  // Agregar a favoritos
+
+    setFavorites(updatedFavorites);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));  // Guardar en localStorage
   };
-  
+
+  // Recuperar los favoritos del localStorage cuando la app se carga
+  useEffect(() => {
+    const savedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    setFavorites(savedFavorites);
+  }, []);
 
   return (
     <>
@@ -41,18 +51,27 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Bienvenidos />} />
+        
+        {/* Rutas para Pokedex y Search */}
         <Route 
           path="/Pokedex" 
           element={
             <>
               <Search sendSearch={sendSearch} />
-              <Pokedex favorites={favorites} handleFavorite={handleFavorite} />
+              <Pokedex handleFavorite={handleFavorite} favorites={favorites} />
             </>
           } 
         />
-        <Route path="/favoritos" element={<Favoritos favorites={favorites} />} />
+        
+        <Route 
+          path="/favoritos" 
+          element={<Favoritos favorites={favorites} />} />
+
+        
         <Route path="/registrate" element={<Formulario />} />
         <Route path="/pokemon/:id" element={<ListaPokemon />} />
+        
+        {/* Ruta para manejo de error */}
         <Route path="*" element={<NotFound />} />
       </Routes>
 
@@ -62,3 +81,5 @@ function App() {
 }
 
 export default App;
+
+

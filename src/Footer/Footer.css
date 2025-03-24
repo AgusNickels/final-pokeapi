@@ -1,30 +1,64 @@
-footer {
-    width: 100%;
-    background-color: #3B4CCA; /* Azul Pokémon o cualquier otro color que prefieras */
-    color: #FFFFFF; /* Texto blanco para contraste */
-    text-align: center;
-    padding: 20px 0;
-    border-top: 3px solid #FF4500; /* Naranja estilo Charizard */
+/* Footer general */
+.pokedex-footer {
+  background-color: #212121; /* Fondo oscuro */
+  color: #f0f0f0; /* Texto claro para buen contraste */
+  padding: 20px 0;
+  text-align: center;
+  position: relative;
+  font-size: 0.9em;
 }
 
+/* Contenedor del contenido del footer */
 .footer-content {
-    display: flex;
+  max-width: 1200px; /* Limitar el ancho máximo */
+  margin: 0 auto; /* Centra el contenido */
+  padding: 10px;
+}
+
+.footer-content p {
+  margin-bottom: 10px;
+  font-weight: 500; /* Textos más gruesos para mayor legibilidad */
+}
+
+/* Estilos para el menú de navegación del footer */
+footer nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Espaciado entre los enlaces */
+  flex-wrap: wrap; /* Para que no se desborden en pantallas pequeñas */
+  margin-top: 15px;
+}
+
+/* Estilo de los enlaces */
+footer nav a {
+  text-decoration: none;
+  color: #f0f0f0;
+  font-size: 1.1em;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+footer nav a:hover {
+  color: #ef5350; /* Rojo Pokémon en hover */
+  transform: scale(1.05); /* Le da un pequeño zoom al enlace cuando se pasa el ratón */
+}
+
+footer nav a:active {
+  color: #d32f2f; /* Rojo más fuerte al hacer clic */
+}
+
+footer nav a:focus {
+  outline: 2px solid #ef5350; /* Contorno para mejorar la accesibilidad */
+}
+
+/* Responsividad: En pantallas pequeñas, los enlaces se apilan verticalmente */
+@media (max-width: 768px) {
+  footer nav {
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-}
+  }
 
-footer nav {
-    display: flex;
-    gap: 15px;
-}
-
-footer a {
-    color: #FFD700; /* Amarillo vibrante */
-    text-decoration: none;
-    font-weight: bold;
-}
-
-footer a:hover {
-    text-decoration: underline;
+  footer nav a {
+    font-size: 1em;
+    margin: 5px 0;
+  }
 }

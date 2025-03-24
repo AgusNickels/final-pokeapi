@@ -1,0 +1,46 @@
+/* Estilos para el formulario de búsqueda */
+.search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  width: 100%;
+  max-width: 400px;
+}
+
+.search-form input {
+  width: 100%;
+  padding: 8px;
+  border: 2px solid #2a75bb;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background-color: #ffffff;
+  color: #333;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.search-form input::placeholder {
+  color: #aaa;
+}
+
+.search-form input:focus {
+  border-color: #ef5350;
+  transform: scale(1.05);
+}
+
+/* Si agregas un botón de búsqueda en el futuro */
+.search-form button {
+  background-color: #2a75bb;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.search-form button:hover {
+  background-color: #FFCC00;
+}
+
